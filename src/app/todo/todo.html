@@ -1,0 +1,41 @@
+<div class="todo-container">
+  <h1>Todo List</h1>
+
+  <form (ngSubmit)="addTodo()" class="todo-form">
+    <input
+      type="text"
+      [(ngModel)]="newTodoTitle"
+      name="newTodo"
+      placeholder="What needs to be done?"
+      class="todo-input"
+    />
+    <button type="submit" class="btn btn-add">Add</button>
+  </form>
+
+  <ul class="todo-list">
+    @for (todo of todoService.allTodos(); track todo.id) {
+      <li [class.completed]="todo.completed">
+        <label class="todo-item">
+          <input
+            type="checkbox"
+            [checked]="todo.completed"
+            (change)="todoService.toggleTodo(todo.id)"
+          />
+          <span class="todo-title">{{ todo.title }}</span>
+        </label>
+        <button class="btn btn-remove" (click)="todoService.removeTodo(todo.id)">Remove</button>
+      </li>
+    } @empty {
+      <li class="empty-state">No todos yet. Add one above!</li>
+    }
+  </ul>
+
+  @if (todoService.allTodos().length > 0) {
+    <div class="todo-footer">
+      <span>{{ todoService.remainingCount() }} remaining, {{ todoService.completedCount() }} completed</span>
+      @if (todoService.completedCount() > 0) {
+        <button class="btn btn-clear" (click)="todoService.clearCompleted()">Clear completed</button>
+      }
+    </div>
+  }
+</div>

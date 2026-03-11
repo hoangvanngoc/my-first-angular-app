@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx ng test --watch=false)",
+      "Bash(cd D:/workspace/my-first-angular-app && npm test 2>&1)"
+    ]
+  }
+}
